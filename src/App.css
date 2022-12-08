@@ -1,1 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Libre+Baskerville:ital@1&display=swap');
+
+header {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-family: "Libre Baskerville", serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 20px;
+    letter-spacing: 0.7rem;
+}
+
+h2 {
+    font-family: "Indie Flower", cursive;
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    margin-bottom: 20px;
+}
+
 
