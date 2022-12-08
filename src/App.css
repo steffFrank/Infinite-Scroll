@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Libre+Baskerville:ital@1&display=swap');
 
+body {
+    background-color: whitesmoke;
+}
 header {
     text-align: center;
     text-transform: uppercase;
