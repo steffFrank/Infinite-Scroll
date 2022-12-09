@@ -27,13 +27,13 @@ const App = () => {
 
     const photoLoaded = () => {
         setPhotosLoaded(photosLoaded + 1);
-        console.log(photosLoaded);
         if (totalPhotos === photosLoaded) {
             setIsReady(true);
             setPhotosLoaded(0);
             setTotalPhotos(20);
         }
     }
+    
     const fetchPhotosAfterScroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && isReady) {
             setIsReady(false);
