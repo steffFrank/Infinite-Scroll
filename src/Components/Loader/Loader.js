@@ -3,6 +3,8 @@ import "./loader.css";
 
 export const Loader = () => {
     return (
-        <img src="./Spin-1s-200px.svg" alt=""/>
+        <div className="loader">
+            <img src={process.env.PUBLIC_URL + "/images/loader.svg"} alt="Loading..." />
+        </div>
     )
 }

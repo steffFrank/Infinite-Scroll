@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ImagesContainer } from './Components/ImagesContainer/ImagesContainer';
+import { Loader } from './Components/Loader/Loader';
 import './App.css';
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
     const queryTerm = "healthy food"
     const apiUrl = `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&count=${totalPhotos}&query=${queryTerm}`;
 
+    const [isLoading, setIsLoading] = useState(true);
     const [photos, setPhotos] = useState([]);
     const [isReady, setIsReady] = useState(false);
     const [photosLoaded, setPhotosLoaded] = useState(0);
@@ -17,6 +19,7 @@ const App = () => {
             const response = await fetch(url);
             const fetchedData = await response.json();
             setPhotos(previousData => previousData.concat(fetchedData));
+            setIsLoading(false);
         }catch(error) {
             console.log(error);
         }
@@ -54,7 +57,7 @@ const App = () => {
                 <h1>infinite scroll</h1>
                 <h2>images by unsplash</h2>
             </header>
-            <ImagesContainer photos={photos} photoLoaded={photoLoaded}/>
+            {isLoading ? <Loader /> : <ImagesContainer photos={photos} photoLoaded={photoLoaded}/>}
         </>
         
     )
