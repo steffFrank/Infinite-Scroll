@@ -9,12 +9,12 @@ export const ImagesContainer = ({photos, photoLoaded}) => {
                     key={index} 
                     href={photo.links.html} 
                     target="_blank" rel="noreferrer">
-                    <figure>
+                    <figure onLoad={() => photoLoaded()}>
                         <img  
                             src={photo.urls.regular}
                             alt={photo.alt_description} 
                             title={photo.alt_description}
-                            onLoad={() => photoLoaded()}
+                            
                         />
                         <figcaption>Photo by {photo.user.name}</figcaption>
                     </figure>
