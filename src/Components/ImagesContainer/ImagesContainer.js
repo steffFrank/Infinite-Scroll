@@ -1,11 +1,25 @@
 import React from "react";
 import "./imagesContainer.css";
 
-export const ImagesContainer = ({photos}) => {
+export const ImagesContainer = ({photos, photoLoaded}) => {
     const displayPhotos = () => {
-        return photos.map(photo => {
+        return photos.map((photo, index) => {
             return (
-                <img  src={photo.urls.regular} key={photo.id} alt={photo.description} title={photo.description} />
+                <a 
+                    key={index} 
+                    href={photo.links.html} 
+                    target="_blank" rel="noreferrer">
+                    <figure>
+                        <img  
+                            src={photo.urls.regular}
+                            alt={photo.alt_description} 
+                            title={photo.alt_description}
+                            onLoad={() => photoLoaded()}
+                        />
+                        <figcaption>Photo by {photo.user.name}</figcaption>
+                    </figure>
+                    
+                </a>
             )
         })
     }

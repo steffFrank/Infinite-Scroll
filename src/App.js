@@ -4,31 +4,57 @@ import './App.css';
 
 const App = () => {
     const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_KEY;
-    const numberOfPhotos = 3;
-    const apiUrl = `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&count=${numberOfPhotos}`;
-    const [photos, setPhotos] = useState([]);
+    const totalPhotos = 20;
+    const queryTerm = "healthy food"
+    const apiUrl = `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&count=${totalPhotos}&query=${queryTerm}`;
 
-    const getPhotos = async (url) => {
+    const [photos, setPhotos] = useState([]);
+    const [isReady, setIsReady] = useState(false);
+    const [photosLoaded, setPhotosLoaded] = useState(0);
+    
+    const getPhotosFromUrl = async (url) => {
         try {
             const response = await fetch(url);
             const fetchedData = await response.json();
-            setPhotos(fetchedData);
+            setPhotos(previousData => previousData.concat(fetchedData));
         }catch(error) {
             console.log(error);
         }
     }
 
+    const photoLoaded = () => {
+        setPhotosLoaded(count => count + 1);
+        console.log(photosLoaded);
+        if (totalPhotos === photosLoaded) {
+            setIsReady(true);
+            setPhotosLoaded(0);
+        }
+    }
+    const fetchPhotosAfterScroll = () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && isReady) {
+            setIsReady(false);
+            getPhotosFromUrl(apiUrl);
+        }
+    }
     useEffect(() => {
-        getPhotos(apiUrl);
+        getPhotosFromUrl(apiUrl);
     },[apiUrl])
 
+    useEffect(() => {
+      window.addEventListener("scroll", fetchPhotosAfterScroll);
+    
+      return () => {
+        window.removeEventListener("scroll",fetchPhotosAfterScroll);
+      }
+    })
+    
     return (
         <>
             <header>
                 <h1>infinite scroll</h1>
                 <h2>images by unsplash</h2>
             </header>
-            <ImagesContainer photos={photos}/>
+            <ImagesContainer photos={photos} photoLoaded={photoLoaded}/>
         </>
         
     )

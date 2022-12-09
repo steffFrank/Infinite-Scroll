@@ -3,6 +3,19 @@
     margin: auto;
 }
 
+figure {
+    margin-bottom: 20px;
+}
 .img-container img {
+    display: block;
     width: 100%;
+}
+
+.img-container a {
+    text-decoration: none;
+}
+
+figcaption {
+    text-align: center;
+    color: grey;
 }
