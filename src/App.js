@@ -5,7 +5,7 @@ import './App.css';
 
 const App = () => {
     const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_KEY;
-    const totalPhotos = 20;
+    const [totalPhotos, setTotalPhotos] = useState(5);
     const queryTerm = "healthy food"
     const apiUrl = `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&count=${totalPhotos}&query=${queryTerm}`;
 
@@ -26,11 +26,12 @@ const App = () => {
     }
 
     const photoLoaded = () => {
-        setPhotosLoaded(count => count + 1);
+        setPhotosLoaded(photosLoaded + 1);
         console.log(photosLoaded);
         if (totalPhotos === photosLoaded) {
             setIsReady(true);
             setPhotosLoaded(0);
+            setTotalPhotos(20);
         }
     }
     const fetchPhotosAfterScroll = () => {
